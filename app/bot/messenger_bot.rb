@@ -230,9 +230,7 @@ def exit postback
 end
 
 def finish_survey postback
-  postback.reply( text: 'Check out http://www.vegaroo.co for more information') 
-  postback.reply( image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735')
-
+  postback.reply( text: 'Check out http://www.vegaroo.co for more information', image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735') 
 end
 
 ## CREATE/GET USER CORE
