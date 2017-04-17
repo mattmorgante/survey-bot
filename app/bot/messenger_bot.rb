@@ -71,7 +71,7 @@ def start_survery postback
     puts 'Ask second question'
     ask_second_question(postback)
 
-  when "MEAT_THREE"
+  when "MEAT_FOUR"
     @answer.update_attributes(meat_per_week: 4)
     @answer.save
     puts 'answer meat four, save the data to user table'
@@ -91,18 +91,18 @@ def start_survery postback
     puts 'answer dairy two, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
-  # when "DAIRY_THREE"
-  #   @answer.update_attributes(dairy_per_week: 3)
-  #   @answer.save
-  #   puts 'answer dairy three, save the data to user table'
-  #   puts 'Ask third question'
-  #   ask_third_question(postback)
-  # when "DAIRY_FOUR"
-  #   @answer.update_attributes(dairy_per_week: 4)
-  #   @answer.save
-  #   puts 'answer dairy four, save the data to user table'
-  #   puts 'Ask third question'
-  #   ask_third_question(postback)
+  when "DAIRY_THREE"
+    @answer.update_attributes(dairy_per_week: 3)
+    @answer.save
+    puts 'answer dairy three, save the data to user table'
+    puts 'Ask third question'
+    ask_third_question(postback)
+  when "DAIRY_FOUR"
+    @answer.update_attributes(dairy_per_week: 4)
+    @answer.save
+    puts 'answer dairy four, save the data to user table'
+    puts 'Ask third question'
+    ask_third_question(postback)
 
     # DONE WITH DAIRY #############################
   when "ORGANIC_YES"
@@ -167,9 +167,9 @@ def ask_second_question postback
         text: 'Servings of DAIRY last week',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'DAIRY_TWO' },
-          # { type: 'postback', title: '10-15 servings (about two per day)', payload: 'DAIRY_THREE' },
-          # { type: 'postback', title: 'More than 15 servings', payload: 'DAIRY_FOUR' }
+          { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' },
+          { type: 'postback', title: 'More than 15 servings', payload: 'DAIRY_FOUR' },
         ]
       }
     }
