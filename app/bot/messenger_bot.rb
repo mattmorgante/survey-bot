@@ -64,6 +64,12 @@ def start_survery postback
     puts 'answer meat two, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
+  when "MEAT_THREE"
+    @answer.update_attributes(meat_per_week: 3)
+    @answer.save
+    puts 'answer meat two, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
   # when "MEAT_THREE"
   #   @answer.update_attributes(meat_per_week: 3)
   #   @answer.save
@@ -148,7 +154,9 @@ def ask_first_question postback
         text: 'Servings of meat last week',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' }
+          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
+
           # { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' },
           # { type: 'postback', title: 'More than 15 servings', payload: 'MEAT_FOUR' }
         ]
@@ -230,7 +238,7 @@ def exit postback
 end
 
 def finish_survey postback
-  postback.reply( text: 'Check out http://www.vegaroo.co for more information', image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735') 
+  postback.reply( text: 'Check out http://www.vegaroo.co for more information') 
 end
 
 ## CREATE/GET USER CORE
