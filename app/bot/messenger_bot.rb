@@ -70,7 +70,6 @@ def start_survery postback
     puts 'answer meat three, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-
   when "MEAT_FOUR"
     @answer.update_attributes(meat_per_week: 4)
     @answer.save
@@ -169,7 +168,7 @@ def ask_second_question postback
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
           { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
           { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' },
-          { type: 'postback', title: 'More than 15 servings', payload: 'DAIRY_FOUR' },
+          { type: 'postback', title: 'More than 15 servings', payload: 'DAIRY_FOUR' }
         ]
       }
     }
