@@ -140,6 +140,8 @@ end
 
 
 def ask_first_question postback
+  puts 'first question method'
+  puts ' #{postback}'
   postback.reply(
     attachment: {
       type: 'template',
@@ -148,8 +150,8 @@ def ask_first_question postback
         text: 'Servings of meat last week',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'MEAT_THREE' },
+          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' },
           { type: 'postback', title: 'More than 15 servings', payload: 'MEAT_FOUR' }
         ]
       }
