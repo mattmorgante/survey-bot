@@ -30,7 +30,6 @@ Bot.on :postback do |postback|
   get_user(messenger_id)
 
   start_survery(postback)
-  
   # if @user.answers.first.status == false 
   #   start_survery(postback)
   # else 
@@ -52,7 +51,7 @@ def start_survery postback
     puts 'Ask first question'
     ask_first_question(postback)
   when "EXIT"
-    puts 'exit'
+    exit(postback)
   when "MEAT_ONE"
     @answer.update_attributes(meat_per_week: 1)
     @answer.save
@@ -65,6 +64,20 @@ def start_survery postback
     puts 'answer meat two, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
+  when "MEAT_THREE"
+    @answer.update_attributes(meat_per_week: 3)
+    @answer.save
+    puts 'answer meat three, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
+  when "MEAT_FOUR"
+    @answer.update_attributes(meat_per_week: 4)
+    @answer.save
+    puts 'answer meat four, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
+
+    # DONE WITH MEAT #############################
   when "DAIRY_ONE"
     @answer.update_attributes(dairy_per_week: 1)
     @answer.save
@@ -77,6 +90,20 @@ def start_survery postback
     puts 'answer dairy two, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
+  when "MEAT_THREE"
+    @answer.update_attributes(dairy_per_week: 3)
+    @answer.save
+    puts 'answer dairy three, save the data to user table'
+    puts 'Ask third question'
+    ask_third_question(postback)
+  when "MEAT_FOUR"
+    @answer.update_attributes(dairy_per_week: 4)
+    @answer.save
+    puts 'answer dairy four, save the data to user table'
+    puts 'Ask third question'
+    ask_third_question(postback)
+
+    # DONE WITH DAIRY #############################
   when "ORGANIC_YES"
     @answer.update_attributes(organic: true)
     @answer.save
@@ -120,8 +147,10 @@ def ask_first_question postback
         template_type: 'button',
         text: 'Servings of meat last week',
         buttons: [
-          { type: 'postback', title: '1', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '2', payload: 'MEAT_TWO' }
+          { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
+          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'MEAT_THREE' },
+          { type: 'postback', title: 'More than 15 servings', payload: 'MEAT_FOUR' }
         ]
       }
     }
@@ -136,8 +165,10 @@ def ask_second_question postback
         template_type: 'button',
         text: 'Servings of DAIRY last week',
         buttons: [
-          { type: 'postback', title: '1', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '2', payload: 'DAIRY_TWO' }
+          { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
+          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'DAIRY_TWO' },
+          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'DAIRY_THREE' },
+          { type: 'postback', title: 'More than 15 servings', payload: 'DAIRY_FOUR' }
         ]
       }
     }
@@ -192,6 +223,10 @@ def ask_fifth_question postback
       }
     }
   ) 
+end
+
+def exit postback
+  postback.reply( text: 'No problem ;)! You can change your mind at any time') 
 end
 
 def finish_survey postback
