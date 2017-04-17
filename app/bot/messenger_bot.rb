@@ -17,8 +17,8 @@ Bot.on :message do |message|
         template_type: 'button',
         text: 'Ready to get started with vegaroo?',
         buttons: [
-          { type: 'postback', title: 'Yes', payload: 'Start_Yes' },
-          { type: 'postback', title: 'No', payload: 'Start_No' }
+          { type: 'postback', title: 'Yes', payload: 'START' },
+          { type: 'postback', title: 'No', payload: 'EXIT' }
         ]
       }
     }
@@ -26,12 +26,57 @@ Bot.on :message do |message|
 end
 
 Bot.on :postback do |postback|
-  postback.sender    # => { 'id' => '1008372609250235' }
-  postback.recipient # => { 'id' => '2015573629214912' }
-  postback.sent_at   # => 2016-04-22 21:30:36 +0200
-  postback.payload   # => 'EXTERMINATE'
 
-  if postback.payload == 'Affirmative'
+  answer = postback.payload
+  case answer
+  when "START"
+    puts 'start'
+    puts 'Ask first question'
+    ask_first_question(postback)
+  when "EXIT"
+    puts 'exit'
+  when "MEAT_ONE"
+    puts 'answer meat one, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
+  when "MEAT_TWO"
+    puts 'answer meat two, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
+  when "DAIRY_ONE"
+    puts 'answer dairy one, save the data to user table'
+    puts 'Ask third question'
+    ask_third_question(postback)
+  when "DAIRY_TWO"
+    puts 'answer dairy two, save the data to user table'
+    puts 'Ask third question'
+    ask_third_question(postback)
+  when "ORGANIC_YES"
+    puts 'answer organic YES, save the data to user table'
+    puts 'Ask fourth question'
+    ask_fourth_question(postback)
+  when "ORGANIC_NO"
+    puts 'answer organic NO, save the data to user table'
+    puts 'Ask fourth question'
+    ask_fourth_question(postback)
+  when "LOCAL_YES"
+    puts 'answer LOCAL YES, save the data to user table'
+    puts 'Ask fifth question'
+    ask_fifth_question(postback)
+  when "LOCAL_NO"
+    puts 'answer LOCAL NO, save the data to user table'
+    puts 'Ask fifth question'
+    ask_fifth_question(postback)
+  when "DETAILS"
+    puts 'answer DETAILS, save the data to user table'
+    puts 'FINISH'
+    finish_survey(postback)
+  else
+    puts "SORRY WE FUCKED UP!!"
+  end
+
+end 
+  def ask_first_question postback
     postback.reply(
       attachment: {
         type: 'template',
@@ -39,77 +84,94 @@ Bot.on :postback do |postback|
           template_type: 'button',
           text: 'Servings of meat last week',
           buttons: [
-            { type: 'postback', title: '1', payload: 'Meat_One' },
-            { type: 'postback', title: '2', payload: 'Meat_Two' }
+            { type: 'postback', title: '1', payload: 'MEAT_ONE' },
+            { type: 'postback', title: '2', payload: 'MEAT_TWO' }
           ]
         }
       }
     )
   end
 
-  if postback.payload == 'Meat_One' or 'Meat_Two'
-    # store data here 
+  def ask_second_question postback
     postback.reply(
       attachment: {
         type: 'template',
         payload: {
           template_type: 'button',
-          text: 'Servings of dairy last week',
+          text: 'Servings of DAIRY last week',
           buttons: [
-            { type: 'postback', title: '1', payload: 'Dairy_One' },
-            { type: 'postback', title: '2', payload: 'Dairy_Two' }
+            { type: 'postback', title: '1', payload: 'DAIRY_ONE' },
+            { type: 'postback', title: '2', payload: 'DAIRY_TWO' }
           ]
         }
       }
     )
-  end 
+  end
 
-
-  if postback.payload == 'Dairy_One' or 'Dairy_Two' 
-      postback.reply(
+  def ask_third_question postback
+    postback.reply( 
       attachment: {
         type: 'template',
         payload: {
           template_type: 'button',
           text: 'Do you eat organic meat and dairy products?',
           buttons: [
-            { type: 'postback', title: 'Yes', payload: 'Organic_Yes' },
-            { type: 'postback', title: 'No', payload: 'Organic_No' }
-          ]
-        }
-      }
-    )
-  end    
-
-  if postback.payload == 'Organic_Yes' or 'Organic_No'
-    postback.reply( 
-            attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'button',
-          text: 'Do you eat local meat and dairy products?',
-          buttons: [
-            { type: 'postback', title: 'Yes', payload: 'Local_Yes' },
-            { type: 'postback', title: 'No', payload: 'Local_No' }
-          ]
-        }
-      }
-    ) 
-  end 
-
-  if postback.payload == 'Local_Yes' or 'Local_No'
-    postback.reply( 
-        attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'button',
-          text: 'Do you eat local meat and dairy products?',
-          buttons: [
-            { type: 'postback', title: 'Yes', payload: 'Local_Yes' },
-            { type: 'postback', title: 'No', payload: 'Local_No' }
+            { type: 'postback', title: 'Yes', payload: 'ORGANIC_YES' },
+            { type: 'postback', title: 'No', payload: 'ORGANIC_NO' }
           ]
         }
       }
     ) 
   end
-end   
+
+
+  def ask_fourth_question postback
+    postback.reply( 
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: 'Do you eat local meat and dairy products?',
+          buttons: [
+            { type: 'postback', title: 'Yes', payload: 'LOCAL_YES' },
+            { type: 'postback', title: 'No', payload: 'LOCAL_NO' }
+          ]
+        }
+      }
+    ) 
+  end
+
+  def ask_fifth_question postback
+    postback.reply( 
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: 'Do you want to share anything else with Vegaroo?',
+          # to do just get the answer reply as a string
+          buttons: [
+            { type: 'postback', title: 'Yes', payload: 'LOCAL_YES' },
+            { type: 'postback', title: 'No', payload: 'LOCAL_NO' }
+          ]
+        }
+      }
+    ) 
+  end
+
+  def finish_survey postback
+    postback.reply( 
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: 'DID YOU LOVE IT!???',
+          buttons: [
+            { type: 'postback', title: 'Yes', payload: 'LOCAL_YES' },
+            { type: 'postback', title: 'No', payload: 'LOCAL_NO' }
+          ]
+        }
+      }
+    ) 
+  end
+
+
