@@ -10,24 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417070523) do
+ActiveRecord::Schema.define(version: 20170417090205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "updates", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "mood"
-    t.text     "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "answers", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "meat_per_week"
+    t.string  "dairy_per_week"
+    t.boolean "organic"
+    t.boolean "local"
+    t.boolean "status"
+    t.index ["user_id"], name: "index_answers_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "facebook_id"
-    t.datetime "notification_time"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "messenger_id"
+    t.string   "gender"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
+  add_foreign_key "answers", "users"
 end
