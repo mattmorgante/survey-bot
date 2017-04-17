@@ -67,21 +67,16 @@ def start_survery postback
   when "MEAT_THREE"
     @answer.update_attributes(meat_per_week: 3)
     @answer.save
-    puts 'answer meat two, save the data to user table'
+    puts 'answer meat three, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-  # when "MEAT_THREE"
-  #   @answer.update_attributes(meat_per_week: 3)
-  #   @answer.save
-  #   puts 'answer meat three, save the data to user table'
-  #   puts 'Ask second question'
-  #   ask_second_question(postback)
-  # when "MEAT_FOUR"
-  #   @answer.update_attributes(meat_per_week: 4)
-  #   @answer.save
-  #   puts 'answer meat four, save the data to user table'
-  #   puts 'Ask second question'
-  #   ask_second_question(postback)
+
+  when "MEAT_THREE"
+    @answer.update_attributes(meat_per_week: 4)
+    @answer.save
+    puts 'answer meat four, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
 
     # DONE WITH MEAT #############################
   when "DAIRY_ONE"
@@ -155,10 +150,8 @@ def ask_first_question postback
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
           { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
-
-          # { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' },
-          # { type: 'postback', title: 'More than 15 servings', payload: 'MEAT_FOUR' }
+          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' },
+          { type: 'postback', title: 'More than 15 servings', payload: 'MEAT_FOUR' }
         ]
       }
     }
