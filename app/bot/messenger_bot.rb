@@ -28,12 +28,14 @@ end
 Bot.on :postback do |postback|
   messenger_id = postback.sender['id']
   get_user(messenger_id)
+
+  start_survery(postback)
   
-  if @user.answers.first.status == false 
-    start_survery(postback)
-  else 
-    postback.reply( text: 'Looks like we already have your data, we will be in touch soon!') 
-  end 
+  # if @user.answers.first.status == false 
+  #   start_survery(postback)
+  # else 
+  #   postback.reply( text: 'Looks like we already have your data, we will be in touch soon!') 
+  # end 
 end 
 
 
