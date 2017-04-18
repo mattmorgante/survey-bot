@@ -179,7 +179,7 @@ end
 
 def show_result postback, user
   #Get sesult from User model
-  surname = user.name 
+  surname = user.first_name 
   result = user.get_range
   postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
   postback.reply(text: "#{result}") 
