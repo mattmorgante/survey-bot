@@ -216,7 +216,7 @@ def exit postback
     attachment: {
       type: 'video',
       payload: {
-        url: 'http://gph.is/2nhqSQ6'
+        url: 'https://media.giphy.com/media/l0Iyc00kML4EkVp6M/giphy.gif'
       }
     }
   ) 
