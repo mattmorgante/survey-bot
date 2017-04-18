@@ -10,19 +10,19 @@ Bot.on :message do |message|
 
   puts " ----- "
   puts @user
-  message.reply(
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'button',
-        text: 'Ready to get started with vegaroo?',
-        buttons: [
-          { type: 'postback', title: 'Yes', payload: 'START' },
-          { type: 'postback', title: 'No', payload: 'EXIT' }
-        ]
-      }
-    }
-  )
+  # message.reply(
+  #   attachment: {
+  #     type: 'template',
+  #     payload: {
+  #       template_type: 'button',
+  #       text: 'Ready to get started with vegaroo?',
+  #       buttons: [
+  #         { type: 'postback', title: 'Yes', payload: 'START' },
+  #         { type: 'postback', title: 'No', payload: 'EXIT' }
+  #       ]
+  #     }
+  #   }
+  # )
 end
 
 Bot.on :postback do |postback|
@@ -32,7 +32,7 @@ Bot.on :postback do |postback|
   if @user.answers.first.status == false 
     start_survery(postback)
   elsif @user.id == 1 or 2
-      start_survery(postback)
+    start_survery(postback)
   else 
     postback.reply( text: 'Looks like we already have your survey responses, we will be in touch soon! If you have any questions you can send us a message and a human will get back to you ;)') 
   end 
@@ -46,12 +46,12 @@ def start_survery postback
   answer = postback.payload
 
   case answer
-  when "START"
+  when "START_USER_SURVEY"
     puts 'start'
     puts 'Ask first question'
     ask_first_question(postback)
   when "EXIT"
-    exit(postback)
+    exit_survey(postback)
   when "MEAT_ONE"
     @answer.update_attributes(meat_per_week: 1)
     @answer.save
@@ -211,7 +211,7 @@ def ask_fifth_question postback
   ) 
 end
 
-def exit postback
+def exit_survey postback
     postback.reply( 
     attachment: {
       type: 'video',
@@ -228,14 +228,12 @@ end
 
 ## CREATE/GET USER CORE
 def get_user messenger_id
-  puts "i got to get user method"
   @user = User.where(messenger_id: messenger_id).first
   # If user does not exist, create new
   create_new_user(messenger_id) unless @user
 end
 
 def set_answer user
-  puts 'i got to set_answer method'
   user_id = user.id
   @answer = Answer.where(user_id: user_id).first
 
