@@ -214,7 +214,7 @@ end
 def exit postback
     postback.reply( 
     attachment: {
-      type: 'image',
+      type: 'video',
       payload: {
         url: 'http://gph.is/2nhqSQ6'
       }
