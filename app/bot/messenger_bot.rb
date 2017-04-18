@@ -10,19 +10,6 @@ Bot.on :message do |message|
 
   puts " ----- "
   puts @user
-  # message.reply(
-  #   attachment: {
-  #     type: 'template',
-  #     payload: {
-  #       template_type: 'button',
-  #       text: 'Ready to get started with vegaroo?',
-  #       buttons: [
-  #         { type: 'postback', title: 'Yes', payload: 'START' },
-  #         { type: 'postback', title: 'No', payload: 'EXIT' }
-  #       ]
-  #     }
-  #   }
-  # )
 end
 
 Bot.on :postback do |postback|
@@ -70,8 +57,6 @@ def start_survery postback
     puts 'answer meat three, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-
-    # DONE WITH MEAT #############################
   when "DAIRY_ONE"
     @answer.update_attributes(dairy_per_week: 1)
     @answer.save
@@ -90,8 +75,6 @@ def start_survery postback
     puts 'answer dairy three, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
-
-    # DONE WITH DAIRY #############################
   when "ORGANIC_YES"
     @answer.update_attributes(organic: true)
     @answer.save
@@ -107,14 +90,14 @@ def start_survery postback
   when "LOCAL_YES"
     @answer.update_attributes(local: true)
     puts 'answer LOCAL YES, save the data to user table'
-    puts 'Ask fifth question'
-    ask_fifth_question(postback)
+    puts 'Show result after survey'
+    show_result(postback, @user)
   when "LOCAL_NO"
     @answer.update_attributes(local: false)
     @answer.save
     puts 'answer LOCAL NO, save the data to user table'
-    puts 'Ask fifth question'
-    ask_fifth_question(postback)
+    puts 'Show result after survey'
+    show_result(postback, @user)
   when "DETAILS"
     @answer.update_attributes(status: true)
     @answer.save
@@ -194,7 +177,12 @@ def ask_fourth_question postback
   ) 
 end
 
-def ask_fifth_question postback
+def show_result postback
+  #Get sesult from User model
+  surname = @user.name 
+  result = @user.get_range
+  postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
+  postback.reply(text: "#{result}") 
   postback.reply( 
     attachment: {
       type: 'template',
