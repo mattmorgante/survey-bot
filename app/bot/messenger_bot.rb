@@ -177,10 +177,10 @@ def ask_fourth_question postback
   ) 
 end
 
-def show_result postback
+def show_result postback, user
   #Get sesult from User model
-  surname = @user.name 
-  result = @user.get_range
+  surname = user.name 
+  result = user.get_range
   postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
   postback.reply(text: "#{result}") 
   postback.reply( 
