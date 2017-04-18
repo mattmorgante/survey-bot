@@ -212,7 +212,14 @@ def ask_fifth_question postback
 end
 
 def exit postback
-  postback.reply( text: 'No problem ;)! You can change your mind at any time') 
+    postback.reply( 
+    attachment: {
+      type: 'image',
+      payload: {
+        url: 'http://gph.is/2nhqSQ6'
+      }
+    }
+  ) 
 end
 
 def finish_survey postback
