@@ -94,12 +94,20 @@ def start_survery postback
     puts 'answer LOCAL NO, save the data to user table'
     puts 'Show result after survey'
     show_result(postback, @user)
-  when "DETAILS"
+  when "DETAILS_YES"
+    @answer.update_attributes(cta: true)
     @answer.update_attributes(status: true)
     @answer.save
-    puts 'answer DETAILS, save the data to user table'
+    puts 'answer DETAILS_YES, save the data to answer table, column CTA'
     puts 'FINISH'
-    finish_survey(postback)
+    finish_survey_positive(postback)
+  when "DETAILS_NO"
+    @answer.update_attributes(cta: false)
+    @answer.update_attributes(status: true)
+    @answer.save
+    puts 'answer DETAILS_NO, save the data to answer table, column CTA'
+    puts 'FINISH'
+    finish_survey_negative(postback)
   else
     puts "SORRY WE SCREWED UP!! We are going to squash this bug and get back to you"
   end
@@ -111,10 +119,10 @@ def ask_zeroth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you how you might be able to improve. Ready to get started?',
+        text: 'Welcome! Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you. Ready to get started?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
-          { type: 'postback', title: 'Sorry, not interested', payload: 'EXIT' }
+          { type: 'postback', title: 'Sorry, nah', payload: 'EXIT' }
         ]
       }
     }
@@ -130,8 +138,8 @@ def ask_first_question postback
         text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
+          { type: 'postback', title: '5-10 servings (about 1 per day)', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings (about 2 per day)', payload: 'MEAT_THREE' }
         ]
       }
     }
@@ -147,8 +155,8 @@ def ask_second_question postback
         text: 'How many servings of dairy did you eat last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' }
+          { type: 'postback', title: '5-10 servings (about 1 per day)', payload: 'DAIRY_TWO' },
+          { type: 'postback', title: '10-15 servings (about 2 per day)', payload: 'DAIRY_THREE' }
         ]
       }
     }
@@ -170,7 +178,6 @@ def ask_third_question postback
     }
   ) 
 end
-
 
 def ask_fourth_question postback
   postback.reply( 
@@ -202,8 +209,8 @@ def show_result postback, user
         text: 'Are you interested in learning more about your impact?',
         # to do just get the answer reply as a string
         buttons: [
-          { type: 'postback', title: 'Yes', payload: 'DETAILS' },
-          { type: 'postback', title: 'No', payload: 'DETAILS' }
+          { type: 'postback', title: 'Yes', payload: 'DETAILS_YES' },
+          { type: 'postback', title: 'No', payload: 'DETAILS_NO' }
         ]
       }
     }
@@ -213,16 +220,20 @@ end
 def exit_survey postback
     postback.reply( 
     attachment: {
-      type: 'video',
+      type: 'image',
       payload: {
-        url: 'https://media.giphy.com/media/l0Iyc00kML4EkVp6M/giphy.gif'
+        url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
       }
     }
   ) 
 end
 
-def finish_survey postback
-  postback.reply( text: 'Thanks for taking the survey! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
+def finish_survey_positive postback
+  postback.reply( text: 'Great, thanks for sharing! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
+end
+
+def finish_survey_negative postback
+  postback.reply( text: 'Thats ok! If you change your mind, you can come back at anytime or check out http://www.vegaroo.co for more information.') 
 end
 
 ## CREATE/GET USER CORE
@@ -264,5 +275,6 @@ def api_call(url)
   require 'open-uri'
   user_data = JSON.parse(open(url).read)
 end
+
 
 

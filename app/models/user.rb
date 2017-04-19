@@ -24,15 +24,15 @@ class User < ApplicationRecord
   	total = impact_score
 		case total
 		when 0..3
-		  "You scored a 5 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[0][0]} liters of Water and #{analitics[0][1]} grams of Carbon Dioxide"
+		  "You scored a 5 out of 5! Over the course of an average day, your animal consumption uses #{analitics[0][0]} liters of Water and #{analitics[0][1]} grams of Carbon Dioxide"
 		when 3..5
-		  "You scored a 4 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[1][0]} liters of Water and #{analitics[1][1]} grams of Carbon Dioxide"
+		  "You scored a 4 out of 5! Over the course of an average day, your animal consumption uses #{analitics[1][0]} liters of Water and #{analitics[1][1]} grams of Carbon Dioxide"
 		when 5..6
-		  "You scored a 3 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[2][0]} liters of Water and #{analitics[2][1]} grams of Carbon Dioxide"
+		  "You scored a 3 out of 5! Over the course of an average day, your animal consumption uses #{analitics[2][0]} liters of Water and #{analitics[2][1]} grams of Carbon Dioxide"
 		when 6..7
-		  "You scored a 2 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[3][0]} liters of Water and #{analitics[3][1]} grams of Carbon Dioxide"
+		  "You scored a 2 out of 5! Over the course of an average day, your animal consumption uses #{analitics[3][0]} liters of Water and #{analitics[3][1]} grams of Carbon Dioxide"
 		when 7..8
-		  "You scored a 1 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[4][0]} liters of Water and #{analitics[4][1]} grams of Carbon Dioxide"
+		  "You scored a 1 out of 5! Over the course of an average day, your animal consumption uses #{analitics[4][0]} liters of Water and #{analitics[4][1]} grams of Carbon Dioxide"
 		else
 		  'Sorry we are not able to calculate your score!'
 		end
