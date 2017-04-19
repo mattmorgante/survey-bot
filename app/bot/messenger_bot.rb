@@ -114,7 +114,7 @@ def ask_zeroth_question postback
         text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you how you might be able to improve. Ready to get started?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
-          { type: 'postback', title: 'Sorry, not interested', payload: 'EXIT' }
+          { type: 'postback', title: 'Sorry, no thanks', payload: 'EXIT' }
         ]
       }
     }
@@ -221,8 +221,13 @@ def exit_survey postback
   ) 
 end
 
-def finish_survey postback
-  postback.reply( text: 'Thanks for taking the survey! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
+
+def finish_survey_positive postback
+  postback.reply( text: 'Great, we will be in touch soon! In the meantime, check out http://www.vegaroo.co for more information.') 
+end
+
+def finish_survey_negative postback
+  postback.reply( text: 'Thats ok! If you change your mind, you can come back at anytime or check out http://www.vegaroo.co for more information.') 
 end
 
 ## CREATE/GET USER CORE

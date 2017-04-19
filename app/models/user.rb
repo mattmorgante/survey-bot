@@ -1,7 +1,5 @@
 class User < ApplicationRecord
 
-  # has_many :reports
-
   has_many :answers
 
   def impact_score
@@ -10,12 +8,10 @@ class User < ApplicationRecord
   	
   	#get only the values to calc
   	values = self.answers.first.attributes.slice('meat_per_week', 'dairy_per_week', 'organic', 'local').values
-  	
   	#Covert Boolean into Integer
-  	values.map { |a| !!a == a ? 1 : 0  }
-  	#Convert and Sum all the arrays indexs
-		values.collect! { |element| (!!element == element) ? (element ? 1 : 0) : element }
-		return values.map(&:to_i).inject(:+)
+		newValues = calc_val(values)
+		
+		return newValues.map(&:to_i).inject(:+)
   end
 
   def get_range
@@ -36,6 +32,22 @@ class User < ApplicationRecord
 		else
 		  'Sorry we are not able to calculate your score!'
 		end
+  end
+
+  def calc_val array
+  	newValues = []
+  	array.each do |val|
+			if val.is_a? String
+				newValues << val.to_i
+			else
+				if val
+					newValues << 1
+				else
+					newValues << 0
+				end
+			end
+		end
+		return newValues
   end
 
 
