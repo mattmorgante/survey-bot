@@ -100,14 +100,14 @@ def start_survery postback
     @answer.save
     puts 'answer DETAILS_YES, save the data to answer table, column CTA'
     puts 'FINISH'
-    finish_survey(postback)
+    finish_survey_positive(postback)
   when "DETAILS_NO"
     @answer.update_attributes(cta: false)
     @answer.update_attributes(status: true)
     @answer.save
     puts 'answer DETAILS_NO, save the data to answer table, column CTA'
     puts 'FINISH'
-    finish_survey(postback)
+    finish_survey_negative(postback)
   else
     puts "SORRY WE SCREWED UP!! We are going to squash this bug and get back to you"
   end
@@ -228,8 +228,12 @@ def exit_survey postback
   ) 
 end
 
-def finish_survey postback
-  postback.reply( text: 'Thanks for sharing! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
+def finish_survey_positive postback
+  postback.reply( text: 'Great, thanks for sharing! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
+end
+
+def finish_survey_negative postback
+  postback.reply( text: 'Thats ok! If you change your mind, you can come back at anytime or check out http://www.vegaroo.co for more information.') 
 end
 
 ## CREATE/GET USER CORE
