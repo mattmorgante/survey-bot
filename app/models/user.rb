@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def get_range
-		analitics = [[800,600],[1600,1200],[2400,1800],[3200,2400],[3900,2900]]
+	analitics = [[800,600],[1600,1200],[2400,1800],[3200,2400],[3900,2900]]
 		
   	total = impact_score
 		case total
