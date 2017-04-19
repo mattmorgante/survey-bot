@@ -35,12 +35,6 @@ def start_survery postback
   when "START"
     puts 'Ask first question'
     ask_first_question(postback)
-  when "VEGGIE"
-    @answer.update_attributes(meat_per_week: 0)
-    @answer.save
-    puts 'answer meat zero, save the data to user table'
-    puts 'Ask second question'
-    ask_second_question(postback)
   when "MEAT_ONE"
     @answer.update_attributes(meat_per_week: 1)
     @answer.save
@@ -135,18 +129,32 @@ def ask_zeroth_question postback
   )
 end 
 
+def veggie_or_vegan postback
+  # to start we can ask if they are already vegan or veggie
+end 
+
 def ask_first_question postback
+  postback.reply(text: "Very nice!! I like!") 
+  postback.reply( 
+    attachment: {
+      type: 'image',
+        payload: {
+          url: 'https://img.memesuper.com/90188cd895ca206cb338aa1d3647d695_download-borat-thumbs-up-meme_256-197.jpeg'
+        }
+      }
+    ) 
   postback.reply(
-    text: 'How many servings of meat did you eat last week? A serving is about the size of a deck of cards',
-    quick_replies: [
-      { content_type: 'text', type: 'postback', title: '1', payload: 'VEGGIE' },
-      { content_type: 'text', type: 'postback', title: '2', payload: 'MEAT_ONE' },
-      { content_type: 'text', type: 'postback', title: '3', payload: 'MEAT_TWO' },
-      { content_type: 'text', type: 'postback', title: '4', payload: 'MEAT_THREE' }
-    ]
+    attachment: {
+        text: 'To get started, how many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
+        buttons: [
+          { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
+          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'MEAT_THREE' }
+        ]
+      }
+    }
   )
 end
-
 
 def ask_second_question postback
   postback.reply(
@@ -198,7 +206,7 @@ def ask_fourth_question postback
 end
 
 def show_result postback, user
-  #Get sesult from User model
+  #Get result from User model
   surname = user.first_name 
   result = user.get_range
   postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
@@ -221,13 +229,13 @@ end
 
 def exit_survey postback
     postback.reply( 
-    attachment: {
-      type: 'image',
-      payload: {
-        url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
+      attachment: {
+        type: 'image',
+        payload: {
+          url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
+        }
       }
-    }
-  ) 
+    ) 
 end
 
 def finish_survey_positive postback
