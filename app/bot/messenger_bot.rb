@@ -15,14 +15,8 @@ end
 Bot.on :postback do |postback|
   messenger_id = postback.sender['id']
   get_user(messenger_id)
-  # now have access to @user
-  if @user.answers.first.status == false 
-    start_survery(postback)
-  elsif @user.id == 1 or 2
-    start_survery(postback)
-  else 
-    postback.reply( text: 'Looks like we already have your survey responses, we will be in touch soon! If you have any questions you can send us a message and a human will get back to you ;)') 
-  end 
+  
+  start_survery(postback)
 end 
 
 
@@ -57,8 +51,6 @@ def start_survery postback
     puts 'answer meat three, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-
-    # DONE WITH MEAT #############################
   when "DAIRY_ONE"
     @answer.update_attributes(dairy_per_week: 1)
     @answer.save
@@ -77,8 +69,6 @@ def start_survery postback
     puts 'answer dairy three, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
-
-    # DONE WITH DAIRY #############################
   when "ORGANIC_YES"
     @answer.update_attributes(organic: true)
     @answer.save
@@ -94,14 +84,14 @@ def start_survery postback
   when "LOCAL_YES"
     @answer.update_attributes(local: true)
     puts 'answer LOCAL YES, save the data to user table'
-    puts 'Ask fifth question'
-    ask_fifth_question(postback)
+    puts 'Show result after survey'
+    show_result(postback, @user)
   when "LOCAL_NO"
     @answer.update_attributes(local: false)
     @answer.save
     puts 'answer LOCAL NO, save the data to user table'
-    puts 'Ask fifth question'
-    ask_fifth_question(postback)
+    puts 'Show result after survey'
+    show_result(postback, @user)
   when "DETAILS"
     @answer.update_attributes(status: true)
     @answer.save
@@ -181,7 +171,12 @@ def ask_fourth_question postback
   ) 
 end
 
-def ask_fifth_question postback
+def show_result postback, user
+  #Get sesult from User model
+  surname = user.first_name 
+  result = user.get_range
+  postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
+  postback.reply(text: "#{result}") 
   postback.reply( 
     attachment: {
       type: 'template',
