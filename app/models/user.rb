@@ -40,7 +40,7 @@ class User < ApplicationRecord
 			if val.is_a? String
 				newValues << val.to_i
 			else
-				if val
+				if !val
 					newValues << 1
 				else
 					newValues << 0
