@@ -10,19 +10,6 @@ Bot.on :message do |message|
 
   puts " ----- "
   puts @user
-  # message.reply(
-  #   attachment: {
-  #     type: 'template',
-  #     payload: {
-  #       template_type: 'button',
-  #       text: 'Ready to get started with vegaroo?',
-  #       buttons: [
-  #         { type: 'postback', title: 'Yes', payload: 'START' },
-  #         { type: 'postback', title: 'No', payload: 'EXIT' }
-  #       ]
-  #     }
-  #   }
-  # )
 end
 
 Bot.on :postback do |postback|
@@ -200,7 +187,7 @@ def ask_fifth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Do you want to share anything else with Vegaroo?',
+        text: 'Do you want to learn more about Vegaroo?',
         # to do just get the answer reply as a string
         buttons: [
           { type: 'postback', title: 'Yes', payload: 'DETAILS' },
