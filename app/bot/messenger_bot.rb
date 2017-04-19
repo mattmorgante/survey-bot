@@ -15,14 +15,8 @@ end
 Bot.on :postback do |postback|
   messenger_id = postback.sender['id']
   get_user(messenger_id)
-  # now have access to @user
-  if @user.answers.first.status == false 
-    start_survery(postback)
-  elsif @user.id == 1 or 2
-    start_survery(postback)
-  else 
-    postback.reply( text: 'Looks like we already have your survey responses, we will be in touch soon! If you have any questions you can send us a message and a human will get back to you ;)') 
-  end 
+  
+  start_survery(postback)
 end 
 
 
