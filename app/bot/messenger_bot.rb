@@ -137,21 +137,15 @@ end
 
 def ask_first_question postback
   postback.reply(
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'button',
-        text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
-        buttons: [
-          { type: 'postback', title: 'I am vegetarian', payload: 'VEGGIE' },
-          { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'MEAT_THREE' }
-        ]
-      }
-    }
+    quick_replies: [
+      { content_type: 'text', title: '1', payload: 'VEGGIE' },
+      { content_type: 'text', title: '2', payload: 'MEAT_ONE' },
+      { content_type: 'text', title: '3', payload: 'MEAT_TWO' },
+      { content_type: 'text', title: '4', payload: 'MEAT_THREE' }
+    ]
   )
 end
+
 
 def ask_second_question postback
   postback.reply(
@@ -163,7 +157,7 @@ def ask_second_question postback
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
           { type: 'postback', title: '5-10 servings (about one per day)', payload: 'DAIRY_TWO' },
-          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'DAIRY_THREE' }
+          { type: 'postback', title: '10-15 servings ', payload: 'DAIRY_THREE' }
         ]
       }
     }
