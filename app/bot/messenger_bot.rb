@@ -114,7 +114,7 @@ def ask_zeroth_question postback
         text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you how you might be able to improve. Ready to get started?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
-          { type: 'postback', title: 'Sorry, not interested', payload: 'EXIT' }
+          { type: 'postback', title: 'Sorry, no thanks', payload: 'EXIT' }
         ]
       }
     }
@@ -130,8 +130,8 @@ def ask_first_question postback
         text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings (~1/day)', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings (~2/day)', payload: 'MEAT_THREE' }
+          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
         ]
       }
     }
@@ -147,8 +147,8 @@ def ask_second_question postback
         text: 'How many servings of dairy did you eat last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '5-10 servings (~1/day)', payload: 'DAIRY_TWO' },
-          { type: 'postback', title: '10-15 servings (~2/day)', payload: 'DAIRY_THREE' }
+          { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' }
         ]
       }
     }

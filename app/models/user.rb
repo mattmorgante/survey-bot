@@ -12,7 +12,7 @@ class User < ApplicationRecord
   	values = self.answers.first.attributes.slice('meat_per_week', 'dairy_per_week', 'organic', 'local').values
   	
   	#Covert Boolean into Integer
-  	values.map { |a| !!a == a ? 1 : 0  }
+  	# values.map { |a| !!a == a ? 1 : 0  }
   	#Convert and Sum all the arrays indexs
 		values.collect! { |element| (!!element == element) ? (element ? 1 : 0) : element }
 		return values.map(&:to_i).inject(:+)
@@ -22,6 +22,8 @@ class User < ApplicationRecord
 	analitics = [[800,600],[1600,1200],[2400,1800],[3200,2400],[3900,2900]]
 		
   	total = impact_score
+  	puts ' ======== TOTAL SCORE ======== '
+  	puts ' score = #{total}'
 		case total
 		when 0..3
 		  "You scored a 5 out of 5! Over the course of an average day, your animal consumption uses #{analitics[0][0]} liters of Water and #{analitics[0][1]} grams of Carbon Dioxide"

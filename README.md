@@ -10,7 +10,7 @@ Things you may want to cover:
 curl -X POST -H "Content-Type: application/json" -d '{
   "setting_type":"greeting",
   "greeting":{
-    "text":"Is good for you!"
+    "text":"Welcome to Vegaroo!"
   }
 }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAF49ippZBVMBABJNDgMnQUEN8uyZAxYqTW7IRYPgb8cyWn2f9udixUU0vovA3d7zGerlXK5BF6eOFx0LUgYTNJ9MYHRJPXKqpZBVZAOYHZAcod1j6gdl0Ft8PR98ZBLvf8ZCw5wS3FP7gTOHqi2CQvBo4LQ4K9QZAnZA2Wr6RF9DfgZDZD"    
 
