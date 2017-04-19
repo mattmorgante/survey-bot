@@ -172,13 +172,10 @@ def ask_fourth_question postback
 end
 
 def show_result postback, user
-  #bot is typing
-  postback.typing_on
   #Get sesult from User model
   surname = user.first_name 
   result = user.get_range
   postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
-  postback.typing_on
   postback.reply(text: "#{result}") 
   postback.reply( 
     attachment: {
