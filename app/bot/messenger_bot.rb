@@ -122,7 +122,7 @@ def ask_zeroth_question postback
         text: 'Welcome! Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you. Ready to get started?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
-          { type: 'postback', title: 'Sorry, not interested', payload: 'EXIT' }
+          { type: 'postback', title: 'Sorry, nah', payload: 'EXIT' }
         ]
       }
     }
