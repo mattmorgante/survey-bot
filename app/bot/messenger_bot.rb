@@ -35,6 +35,12 @@ def start_survery postback
   when "START"
     puts 'Ask first question'
     ask_first_question(postback)
+  when "VEGGIE"
+    @answer.update_attributes(meat_per_week: 0)
+    @answer.save
+    puts 'answer meat zero, save the data to user table'
+    puts 'Ask second question'
+    ask_second_question(postback)
   when "MEAT_ONE"
     @answer.update_attributes(meat_per_week: 1)
     @answer.save
@@ -137,9 +143,10 @@ def ask_first_question postback
         template_type: 'button',
         text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
         buttons: [
+          { type: 'postback', title: 'I am vegetarian', payload: 'VEGGIE' },
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
+          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'MEAT_THREE' }
         ]
       }
     }
@@ -155,8 +162,8 @@ def ask_second_question postback
         text: 'How many servings of dairy did you eat last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' }
+          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'DAIRY_TWO' },
+          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'DAIRY_THREE' }
         ]
       }
     }
