@@ -129,27 +129,17 @@ def ask_zeroth_question postback
   )
 end 
 
-def veggie_or_vegan postback
-  # to start we can ask if they are already vegan or veggie
-end 
-
 def ask_first_question postback
-  postback.reply(text: "Very nice!! I like!") 
-  postback.reply( 
-    attachment: {
-      type: 'image',
-        payload: {
-          url: 'https://img.memesuper.com/90188cd895ca206cb338aa1d3647d695_download-borat-thumbs-up-meme_256-197.jpeg'
-        }
-      }
-    ) 
   postback.reply(
     attachment: {
-        text: 'To get started, how many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
+      type: 'template',
+      payload: {
+        template_type: 'button',
+        text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings (about two per day)', payload: 'MEAT_THREE' }
+          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
         ]
       }
     }
@@ -165,8 +155,8 @@ def ask_second_question postback
         text: 'How many servings of dairy did you eat last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '5-10 servings (about one per day)', payload: 'DAIRY_TWO' },
-          { type: 'postback', title: '10-15 servings ', payload: 'DAIRY_THREE' }
+          { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
+          { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' }
         ]
       }
     }
@@ -206,7 +196,7 @@ def ask_fourth_question postback
 end
 
 def show_result postback, user
-  #Get result from User model
+  #Get sesult from User model
   surname = user.first_name 
   result = user.get_range
   postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
@@ -229,13 +219,13 @@ end
 
 def exit_survey postback
     postback.reply( 
-      attachment: {
-        type: 'image',
-        payload: {
-          url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
-        }
+    attachment: {
+      type: 'image',
+      payload: {
+        url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
       }
-    ) 
+    }
+  ) 
 end
 
 def finish_survey_positive postback
@@ -285,5 +275,6 @@ def api_call(url)
   require 'open-uri'
   user_data = JSON.parse(open(url).read)
 end
+
 
 
