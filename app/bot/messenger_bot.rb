@@ -139,10 +139,10 @@ def ask_first_question postback
   postback.reply(
     text: 'How many servings of meat did you eat last week? A serving is about the size of a deck of cards',
     quick_replies: [
-      { content_type: 'text', title: '1', payload: 'VEGGIE' },
-      { content_type: 'text', title: '2', payload: 'MEAT_ONE' },
-      { content_type: 'text', title: '3', payload: 'MEAT_TWO' },
-      { content_type: 'text', title: '4', payload: 'MEAT_THREE' }
+      { content_type: 'text', type: 'postback', title: '1', payload: 'VEGGIE' },
+      { content_type: 'text', type: 'postback', title: '2', payload: 'MEAT_ONE' },
+      { content_type: 'text', type: 'postback', title: '3', payload: 'MEAT_TWO' },
+      { content_type: 'text', type: 'postback', title: '4', payload: 'MEAT_THREE' }
     ]
   )
 end
