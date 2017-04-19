@@ -9,10 +9,11 @@ class User < ApplicationRecord
   	answer = self.answers.first
   	
   	#get only the values to calc
-  	values = self.answers.first.attributes.slice('meat_per_week', 'dairy_per_week', 'organic', 'local').values
+  	boolvalues = self.answers.first.attributes.slice('meat_per_week', 'dairy_per_week', 'organic', 'local').values
   	
+
   	#Covert Boolean into Integer
-  	# values.map { |a| !!a == a ? 1 : 0  }
+  	values.map { |a| !!a == a ? 1 : 0  }
   	#Convert and Sum all the arrays indexs
 		values.collect! { |element| (!!element == element) ? (element ? 1 : 0) : element }
 		return values.map(&:to_i).inject(:+)
@@ -23,6 +24,7 @@ class User < ApplicationRecord
 		
   	total = impact_score
   	puts ' ======== TOTAL SCORE ======== '
+  	puts ' score = #{impact_score}'
   	puts ' score = #{total}'
 		case total
 		when 0..3
