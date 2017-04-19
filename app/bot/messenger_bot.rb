@@ -28,11 +28,13 @@ def start_survery postback
 
   case answer
   when "START_USER_SURVEY"
-    puts 'start'
-    puts 'Ask first question'
-    ask_first_question(postback)
+    puts 'Ask zeroth question'
+    ask_zeroth_question(postback)
   when "EXIT"
     exit_survey(postback)
+  when "START"
+    puts 'Ask first question'
+    ask_first_question(postback)
   when "MEAT_ONE"
     @answer.update_attributes(meat_per_week: 1)
     @answer.save
@@ -99,10 +101,25 @@ def start_survery postback
     puts 'FINISH'
     finish_survey(postback)
   else
-    puts "SORRY WE FUCKED UP!!"
+    puts "SORRY WE SCREWED UP!! We are going to squash this bug and get back to you"
   end
 end
 
+def ask_zeroth_question postback 
+  postback.reply(
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'button',
+        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you how you might be able to improve. Ready to get started?',
+        buttons: [
+          { type: 'postback', title: 'Lets go!', payload: 'START' },
+          { type: 'postback', title: 'Sorry, not interested', payload: 'EXIT' }
+        ]
+      }
+    }
+  )
+end 
 
 def ask_first_question postback
   postback.reply(
@@ -110,7 +127,7 @@ def ask_first_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Servings of meat last week',
+        text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
           { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
@@ -127,7 +144,7 @@ def ask_second_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Servings of DAIRY last week',
+        text: 'How many servings of dairy did you eat last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
           { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
@@ -144,7 +161,7 @@ def ask_third_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Do you eat organic meat and dairy products?',
+        text: 'Do you eat organic or biological meat and dairy products?',
         buttons: [
           { type: 'postback', title: 'Yes', payload: 'ORGANIC_YES' },
           { type: 'postback', title: 'No', payload: 'ORGANIC_NO' }
@@ -161,7 +178,7 @@ def ask_fourth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Do you eat local meat and dairy products?',
+        text: 'Do you eat local meat and dairy products? Local food is from within a 150 kilometer radius.',
         buttons: [
           { type: 'postback', title: 'Yes', payload: 'LOCAL_YES' },
           { type: 'postback', title: 'No', payload: 'LOCAL_NO' }
@@ -182,7 +199,7 @@ def show_result postback, user
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Do you want to learn more about Vegaroo?',
+        text: 'Are you interested in learning more about your impact?',
         # to do just get the answer reply as a string
         buttons: [
           { type: 'postback', title: 'Yes', payload: 'DETAILS' },
@@ -205,7 +222,7 @@ def exit_survey postback
 end
 
 def finish_survey postback
-  postback.reply( text: 'Check out http://www.vegaroo.co for more information') 
+  postback.reply( text: 'Thanks for taking the survey! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
 end
 
 ## CREATE/GET USER CORE
@@ -218,7 +235,7 @@ end
 def set_answer user
   user_id = user.id
   @answer = Answer.where(user_id: user_id).first
-
+  # If answer does not exist, create new
   create_new_answer(user_id) unless @answer
 end 
 

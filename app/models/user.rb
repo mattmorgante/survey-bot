@@ -24,15 +24,15 @@ class User < ApplicationRecord
   	total = impact_score
 		case total
 		when 0..3
-		  "5 out of 5 - in details Water:#{analitics[0][0]}l | Co2:#{analitics[0][1]}g "
+		  "You scored a 5 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[0][0]} liters of Water and #{analitics[0][1]} grams of Carbon Dioxide"
 		when 3..5
-		  "4 out of 5 - in details Water:#{analitics[1][0]}l | Co2:#{analitics[1][1]}g "
+		  "You scored a 4 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[1][0]} liters of Water and #{analitics[1][1]} grams of Carbon Dioxide"
 		when 5..6
-		  "3 out of 5 - in details Water:#{analitics[2][0]}l | Co2:#{analitics[2][1]}g "
+		  "You scored a 3 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[2][0]} liters of Water and #{analitics[2][1]} grams of Carbon Dioxide"
 		when 6..7
-		  "2 out of 5 - in details Water:#{analitics[3][0]}l | Co2:#{analitics[3][1]}g "
+		  "You scored a 2 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[3][0]} liters of Water and #{analitics[3][1]} grams of Carbon Dioxide"
 		when 7..8
-		  "1 out of 5 - in details Water:#{analitics[4][0]}l | Co2:#{analitics[4][1]}g "
+		  "You scored a 1 out of 5! Over the course of an average day, your animal consumption accounts for details #{analitics[4][0]} liters of Water and #{analitics[4][1]} grams of Carbon Dioxide"
 		else
 		  'Sorry we are not able to calculate your score!'
 		end
