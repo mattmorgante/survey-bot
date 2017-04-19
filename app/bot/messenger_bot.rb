@@ -94,10 +94,18 @@ def start_survery postback
     puts 'answer LOCAL NO, save the data to user table'
     puts 'Show result after survey'
     show_result(postback, @user)
-  when "DETAILS"
+  when "DETAILS_YES"
+    @answer.update_attributes(cta: true)
     @answer.update_attributes(status: true)
     @answer.save
-    puts 'answer DETAILS, save the data to user table'
+    puts 'answer DETAILS_YES, save the data to answer table, column CTA'
+    puts 'FINISH'
+    finish_survey(postback)
+  when "DETAILS_NO"
+    @answer.update_attributes(cta: false)
+    @answer.update_attributes(status: true)
+    @answer.save
+    puts 'answer DETAILS_NO, save the data to answer table, column CTA'
     puts 'FINISH'
     finish_survey(postback)
   else
@@ -111,7 +119,7 @@ def ask_zeroth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you how you might be able to improve. Ready to get started?',
+        text: 'Welcome, #{surname}! Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you. Ready to get started?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
           { type: 'postback', title: 'Sorry, not interested', payload: 'EXIT' }
@@ -171,7 +179,6 @@ def ask_third_question postback
   ) 
 end
 
-
 def ask_fourth_question postback
   postback.reply( 
     attachment: {
@@ -202,8 +209,8 @@ def show_result postback, user
         text: 'Are you interested in learning more about your impact?',
         # to do just get the answer reply as a string
         buttons: [
-          { type: 'postback', title: 'Yes', payload: 'DETAILS' },
-          { type: 'postback', title: 'No', payload: 'DETAILS' }
+          { type: 'postback', title: 'Yes', payload: 'DETAILS_YES' },
+          { type: 'postback', title: 'No', payload: 'DETAILS_NO' }
         ]
       }
     }
@@ -213,16 +220,16 @@ end
 def exit_survey postback
     postback.reply( 
     attachment: {
-      type: 'video',
+      type: 'image',
       payload: {
-        url: 'https://media.giphy.com/media/l0Iyc00kML4EkVp6M/giphy.gif'
+        url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
       }
     }
   ) 
 end
 
 def finish_survey postback
-  postback.reply( text: 'Thanks for taking the survey! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
+  postback.reply( text: 'Thanks for sharing! We will be in touch soon. In the meantime, check out http://www.vegaroo.co for more information.') 
 end
 
 ## CREATE/GET USER CORE
