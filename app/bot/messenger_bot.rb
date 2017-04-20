@@ -229,7 +229,7 @@ end
 
 
 def finish_survey_positive postback
-  postback.reply( text: 'Great, we will be in touch soon! In the meantime, check out http://www.vegaroo.co for more information.') 
+  postback.reply( text: 'Great, a human will be in touch soon! In the meantime, check out http://www.vegaroo.co for more information.') 
 end
 
 def finish_survey_negative postback
