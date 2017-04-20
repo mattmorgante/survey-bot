@@ -94,12 +94,18 @@ def start_survery postback
     puts 'answer LOCAL NO, save the data to user table'
     puts 'Show result after survey'
     show_result(postback, @user)
-  when "DETAILS"
+  when "DETAILS_YES"
     @answer.update_attributes(status: true)
     @answer.save
     puts 'answer DETAILS, save the data to user table'
     puts 'FINISH'
-    finish_survey(postback)
+    finish_survey_positive(postback)
+  when "DETAILS_NO"
+    @answer.update_attributes(status: true)
+    @answer.save
+    puts 'answer DETAILS, save the data to user table'
+    puts 'FINISH'
+    finish_survey_negative(postback)
   else
     puts "SORRY WE SCREWED UP!! We are going to squash this bug and get back to you"
   end
@@ -202,8 +208,8 @@ def show_result postback, user
         text: 'Are you interested in learning more about your impact?',
         # to do just get the answer reply as a string
         buttons: [
-          { type: 'postback', title: 'Yes', payload: 'DETAILS' },
-          { type: 'postback', title: 'No', payload: 'DETAILS' }
+          { type: 'postback', title: 'Yes', payload: 'DETAILS_YES' },
+          { type: 'postback', title: 'No', payload: 'DETAILS_NO' }
         ]
       }
     }
@@ -213,9 +219,9 @@ end
 def exit_survey postback
     postback.reply( 
     attachment: {
-      type: 'video',
+      type: 'image',
       payload: {
-        url: 'https://media.giphy.com/media/l0Iyc00kML4EkVp6M/giphy.gif'
+        url: 'http://s2.quickmeme.com/img/ee/ee71aaef710f28451bb40f142ce53d35ce50405caafdfdb53e73417fc2619af3.jpg'
       }
     }
   ) 
