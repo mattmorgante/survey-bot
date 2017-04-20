@@ -94,12 +94,18 @@ def start_survery postback
     puts 'answer LOCAL NO, save the data to user table'
     puts 'Show result after survey'
     show_result(postback, @user)
-  when "DETAILS"
+  when "DETAILS_YES"
     @answer.update_attributes(status: true)
     @answer.save
     puts 'answer DETAILS, save the data to user table'
     puts 'FINISH'
-    finish_survey(postback)
+    finish_survey_positive(postback)
+  when "DETAILS_NO"
+    @answer.update_attributes(status: true)
+    @answer.save
+    puts 'answer DETAILS, save the data to user table'
+    puts 'FINISH'
+    finish_survey_negative(postback)
   else
     puts "SORRY WE SCREWED UP!! We are going to squash this bug and get back to you"
   end
@@ -223,7 +229,7 @@ end
 
 
 def finish_survey_positive postback
-  postback.reply( text: 'Great, we will be in touch soon! In the meantime, check out http://www.vegaroo.co for more information.') 
+  postback.reply( text: 'Great, a human will be in touch soon! In the meantime, check out http://www.vegaroo.co for more information.') 
 end
 
 def finish_survey_negative postback
