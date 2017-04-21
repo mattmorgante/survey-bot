@@ -117,7 +117,7 @@ def ask_zeroth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about you how you might be able to improve. Ready to get started?',
+        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about how you might be able to improve. Ready to get started?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
           { type: 'postback', title: 'Sorry, no thanks', payload: 'EXIT' }
@@ -133,7 +133,7 @@ def ask_first_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'How many servings of meat did you in the last week? A serving of meat is about the size of a deck of cards',
+        text: 'How many servings of meat did you eat in the last week? A serving of meat is about the size of a deck of cards',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
           { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
@@ -150,7 +150,7 @@ def ask_second_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'How many servings of dairy did you eat last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
+        text: 'How many servings of dairy did you eat in the last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
         buttons: [
           { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
           { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
