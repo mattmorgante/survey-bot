@@ -117,7 +117,7 @@ def ask_zeroth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. To kick things off, we are going to ask you a few questions to learn more about how you might be able to improve. Ready to get started?',
+        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. We need to ask a few questions to get started.',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
           { type: 'postback', title: 'Sorry, no thanks', payload: 'EXIT' }
