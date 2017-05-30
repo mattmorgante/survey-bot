@@ -24,3 +24,6 @@ ToDo:
 * Add the HTTPS ngrok url /bot as the callback URL 
 * add verify as the verify token 
 * check messages, messaging_postbacks, message_reads, message_deliveries 
+* Subscribe your new page to this webhook! 
+* CURL your application to add a getting started button - this action will add a button that sends the payload START_USER_SURVEY. When the user clicks on it, it will trigger the first question from app/bot/messenger_bot.rb
+** curl -X POST -H "Content-Type: application/json"thread_state":"new_thread", "call_to_actions":[ { "payload":"START_USER_SURVEY" } ] }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=YOUR_ACCESS_TOKEN_HERE"
