@@ -11,11 +11,11 @@ end
 Bot.on :postback do |postback|
   messenger_id = postback.sender['id']
   get_user(messenger_id)
-  start_survery(postback)
+  execute_survey(postback)
 end 
 
 
-def start_survery postback
+def execute_survey postback
   set_answer(@user)
   answer = postback.payload
 
@@ -28,44 +28,44 @@ def start_survery postback
   when "START"
     puts 'Ask first question'
     ask_first_question(postback)
-  when "MEAT_ONE"
+  when "ANSWER_ONE_ONE"
     @answer.update_attributes(answer_one: 1)
     @answer.save
     puts 'answer question one, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-  when "MEAT_TWO"
+  when "ANSWER_ONE_TWO"
     @answer.update_attributes(answer_one: 2)
     @answer.save
     puts 'answer question one, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-  when "MEAT_THREE"
+  when "ANSWER_ONE_THREE"
     @answer.update_attributes(answer_one: 3)
     @answer.save
     puts 'answer question one, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
-  when "DAIRY_ONE"
+  when "ANSWER_TWO_ONE"
     @answer.update_attributes(answer_two: 1)
     @answer.save
     puts 'answer question two, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
-  when "DAIRY_TWO"
+  when "ANSWER_TWO_TWO"
     @answer.update_attributes(answer_two: 2)
     @answer.save
     puts 'answer question two, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
-  when "DAIRY_THREE"
+  when "ANSWER_TWO_THREE"
     @answer.update_attributes(answer_two: 3)
     @answer.save
     puts 'answer question two, save the data to user table'
     puts 'Show result'
     show_result(postback, @user)
   else
-    puts "Somehow you sent an invalid response!"
+    puts "Somehow you sent an invalid postback value!"
   end
 end
 

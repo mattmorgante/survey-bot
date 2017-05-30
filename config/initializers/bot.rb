@@ -1,5 +1,3 @@
-
-# config/initializers/bot.rb
 unless Rails.env.production?
   bot_files = Dir[Rails.root.join('app', 'bot', '**', '*.rb')]
   bot_reloader = ActiveSupport::FileUpdateChecker.new(bot_files) do
