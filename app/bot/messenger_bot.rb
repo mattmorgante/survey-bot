@@ -4,26 +4,19 @@ include Facebook::Messenger
 
 
 Bot.on :message do |message|
-  puts "in the message"
   messenger_id = message.sender['id']
   get_user(messenger_id)
-
-  puts " ----- "
-  puts @user
 end
 
 Bot.on :postback do |postback|
   messenger_id = postback.sender['id']
   get_user(messenger_id)
-  
   start_survery(postback)
 end 
 
 
 def start_survery postback
-
   set_answer(@user)
-  # now have access to @answer
   answer = postback.payload
 
   case answer
@@ -36,78 +29,43 @@ def start_survery postback
     puts 'Ask first question'
     ask_first_question(postback)
   when "MEAT_ONE"
-    @answer.update_attributes(meat_per_week: 1)
+    @answer.update_attributes(answer_one: 1)
     @answer.save
-    puts 'answer meat one, save the data to user table'
+    puts 'answer question one, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
   when "MEAT_TWO"
-    @answer.update_attributes(meat_per_week: 2)
+    @answer.update_attributes(answer_one: 2)
     @answer.save
-    puts 'answer meat two, save the data to user table'
+    puts 'answer question one, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
   when "MEAT_THREE"
-    @answer.update_attributes(meat_per_week: 3)
+    @answer.update_attributes(answer_one: 3)
     @answer.save
-    puts 'answer meat three, save the data to user table'
+    puts 'answer question one, save the data to user table'
     puts 'Ask second question'
     ask_second_question(postback)
   when "DAIRY_ONE"
-    @answer.update_attributes(dairy_per_week: 1)
+    @answer.update_attributes(answer_two: 1)
     @answer.save
-    puts 'answer dairy one, save the data to user table'
+    puts 'answer question two, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
   when "DAIRY_TWO"
-    @answer.update_attributes(dairy_per_week: 2)
+    @answer.update_attributes(answer_two: 2)
     @answer.save
-    puts 'answer dairy two, save the data to user table'
+    puts 'answer question two, save the data to user table'
     puts 'Ask third question'
     ask_third_question(postback)
   when "DAIRY_THREE"
-    @answer.update_attributes(dairy_per_week: 3)
+    @answer.update_attributes(answer_two: 3)
     @answer.save
-    puts 'answer dairy three, save the data to user table'
-    puts 'Ask third question'
-    ask_third_question(postback)
-  when "ORGANIC_YES"
-    @answer.update_attributes(organic: true)
-    @answer.save
-    puts 'answer organic YES, save the data to user table'
-    puts 'Ask fourth question'
-    ask_fourth_question(postback)
-  when "ORGANIC_NO"
-    @answer.update_attributes(organic: false)
-    @answer.save
-    puts 'answer organic NO, save the data to user table'
-    puts 'Ask fourth question'
-    ask_fourth_question(postback)
-  when "LOCAL_YES"
-    @answer.update_attributes(local: true)
-    puts 'answer LOCAL YES, save the data to user table'
-    puts 'Show result after survey'
+    puts 'answer question two, save the data to user table'
+    puts 'Show result'
     show_result(postback, @user)
-  when "LOCAL_NO"
-    @answer.update_attributes(local: false)
-    @answer.save
-    puts 'answer LOCAL NO, save the data to user table'
-    puts 'Show result after survey'
-    show_result(postback, @user)
-  when "DETAILS_YES"
-    @answer.update_attributes(status: true)
-    @answer.save
-    puts 'answer DETAILS, save the data to user table'
-    puts 'FINISH'
-    finish_survey_positive(postback)
-  when "DETAILS_NO"
-    @answer.update_attributes(status: true)
-    @answer.save
-    puts 'answer DETAILS, save the data to user table'
-    puts 'FINISH'
-    finish_survey_negative(postback)
   else
-    puts "SORRY WE SCREWED UP!! We are going to squash this bug and get back to you"
+    puts "Somehow you sent an invalid response!"
   end
 end
 
@@ -117,10 +75,10 @@ def ask_zeroth_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'Vegaroo calculates the impact of your food choices and makes it easier to make a positive impact on the environment. We need to ask a few questions to get started.',
+        text: 'Ready to get started with the survey?',
         buttons: [
           { type: 'postback', title: 'Lets go!', payload: 'START' },
-          { type: 'postback', title: 'Sorry, no thanks', payload: 'EXIT' }
+          { type: 'postback', title: 'No thanks', payload: 'EXIT' }
         ]
       }
     }
@@ -133,11 +91,11 @@ def ask_first_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'How many servings of meat did you eat in the last week? A serving of meat is about the size of a deck of cards',
+        text: 'This is the first question. It has three buttons to answer from',
         buttons: [
-          { type: 'postback', title: '0-5 servings', payload: 'MEAT_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'MEAT_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'MEAT_THREE' }
+          { type: 'postback', title: 'Button one', payload: 'ANSWER_ONE_ONE' },
+          { type: 'postback', title: 'Button two', payload: 'ANSWER_ONE_TWO' },
+          { type: 'postback', title: 'Button three', payload: 'ANSWER_ONE_THREE' }
         ]
       }
     }
@@ -150,73 +108,27 @@ def ask_second_question postback
       type: 'template',
       payload: {
         template_type: 'button',
-        text: 'How many servings of dairy did you eat in the last week? A serving of dairy is one egg, 1/2 cup of milk, or a slice of cheese',
+        text: 'This is the second question. It works just like the first one ;)',
         buttons: [
-          { type: 'postback', title: '0-5 servings', payload: 'DAIRY_ONE' },
-          { type: 'postback', title: '5-10 servings', payload: 'DAIRY_TWO' },
-          { type: 'postback', title: '10-15 servings', payload: 'DAIRY_THREE' }
+          { type: 'postback', title: 'Button one', payload: 'ANSWER_TWO_ONE' },
+          { type: 'postback', title: 'Button two', payload: 'ANSWER_TWO_TWO' },
+          { type: 'postback', title: 'Button three', payload: 'ANSWER_TWO_THREE' }
         ]
       }
     }
   )
 end
 
-def ask_third_question postback
-  postback.reply( 
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'button',
-        text: 'Do you eat organic or biological meat and dairy products?',
-        buttons: [
-          { type: 'postback', title: 'Yes', payload: 'ORGANIC_YES' },
-          { type: 'postback', title: 'No', payload: 'ORGANIC_NO' }
-        ]
-      }
-    }
-  ) 
-end
-
-
-def ask_fourth_question postback
-  postback.reply( 
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'button',
-        text: 'Do you eat local meat and dairy products? Local food is from within a 150 kilometer radius.',
-        buttons: [
-          { type: 'postback', title: 'Yes', payload: 'LOCAL_YES' },
-          { type: 'postback', title: 'No', payload: 'LOCAL_NO' }
-        ]
-      }
-    }
-  ) 
-end
-
 def show_result postback, user
   #Get sesult from User model
   surname = user.first_name 
-  result = user.get_range
-  postback.reply(text: "Ok #{surname}, I'm calculating your impact..") 
+  result = user.get_results
+  postback.reply(text: "Ok #{surname}, Here are your answers to the questions") 
   postback.reply(text: "#{result}") 
-  postback.reply( 
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'button',
-        text: 'Are you interested in learning more about your impact?',
-        # to do just get the answer reply as a string
-        buttons: [
-          { type: 'postback', title: 'Yes', payload: 'DETAILS_YES' },
-          { type: 'postback', title: 'No', payload: 'DETAILS_NO' }
-        ]
-      }
-    }
-  ) 
 end
 
 def exit_survey postback
+    # you can also send photos by including a URL in the payload response
     postback.reply( 
     attachment: {
       type: 'image',
@@ -225,15 +137,6 @@ def exit_survey postback
       }
     }
   ) 
-end
-
-
-def finish_survey_positive postback
-  postback.reply( text: 'Great, a human will be in touch soon! In the meantime, check out http://www.vegaroo.co for more information.') 
-end
-
-def finish_survey_negative postback
-  postback.reply( text: 'Thats ok! If you change your mind, you can come back at anytime or check out http://www.vegaroo.co for more information.') 
 end
 
 ## CREATE/GET USER CORE

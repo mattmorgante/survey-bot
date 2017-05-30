@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :answers
 
   def impact_score
+
+  	values = self.answers.first
   	#Get answer
   	answer = self.answers.first
   	

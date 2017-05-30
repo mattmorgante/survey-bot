@@ -5,7 +5,6 @@ class CreateUser < ActiveRecord::Migration[5.0]
       t.string :last_name
       t.string :messenger_id
       t.string :gender
-
       t.timestamps
     end
   end
