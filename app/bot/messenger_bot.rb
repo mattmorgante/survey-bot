@@ -122,7 +122,7 @@ end
 def show_result postback, user
   #Get sesult from User model
   surname = user.first_name 
-  result = user.get_results
+  result = user.get_result
   postback.reply(text: "Ok #{surname}, Here are your answers to the questions") 
   postback.reply(text: "#{result}") 
 end
@@ -139,7 +139,7 @@ def exit_survey postback
   ) 
 end
 
-## CREATE/GET USER CORE
+# User Functionality 
 def get_user messenger_id
   @user = User.where(messenger_id: messenger_id).first
   # If user does not exist, create new
@@ -159,7 +159,6 @@ def create_new_answer(user_id)
 end 
 
 def create_new_user(messenger_id)
-  # Create new user object
   @user = User.new(messenger_id: messenger_id)
 
   # Get user info from Messenger User Profile API
