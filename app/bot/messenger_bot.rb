@@ -51,13 +51,13 @@ def execute_survey postback
     @answer.save
     puts 'answer question two, save the data to user table'
     puts 'Ask third question'
-    ask_third_question(postback)
+    show_result(postback, @user)
   when "ANSWER_TWO_TWO"
     @answer.update_attributes(answer_two: 2)
     @answer.save
     puts 'answer question two, save the data to user table'
     puts 'Ask third question'
-    ask_third_question(postback)
+    show_result(postback, @user)
   when "ANSWER_TWO_THREE"
     @answer.update_attributes(answer_two: 3)
     @answer.save
@@ -122,7 +122,7 @@ end
 def show_result postback, user
   #Get sesult from User model
   surname = user.first_name 
-  result = user.get_result
+  result = user.get_answers
   postback.reply(text: "Ok #{surname}, Here are your answers to the questions") 
   postback.reply(text: "#{result}") 
 end
